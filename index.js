@@ -25,6 +25,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const createUser = require("./controller/userCtr");
 
+// just checking...
+
 // app.get("/", (req, res) => {
 //   res.render("page-register");
 // });
