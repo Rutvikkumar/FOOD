@@ -98,4 +98,3 @@ const verifyMail = async (req, res) => {
   }
 };
 
-module.exports = { Register, createUser, verifyMail };
