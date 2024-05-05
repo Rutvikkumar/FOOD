@@ -66,7 +66,7 @@ const createUser = async (req, res) => {
     });
 
     const result = await newUser.save();
-    res.status(201).send("Registration has been successful. " + result);
+    res.status(201).render("Registration has been successful. " + result);
     if (result) {
       sendVerifyMail(req.body.username, req.body.email, userData._id);
       res.render("page-register", {
@@ -97,4 +97,11 @@ const verifyMail = async (req, res) => {
     console.log(error);
   }
 };
+
+
+module.exports ={
+  Register ,
+  createUser ,
+  verifyMail
+}
 
