@@ -23,7 +23,7 @@ const sendVerifyMail = async (name, email, user_id) => {
       requireTLS: true,
       auth: {
         user: "rutvikparmar00021@gmail.com",
-        pass: "aezrjnwmbsbrdzbr",
+        pass: "ozzlxyjciftmgigv",
       },
     });
 
@@ -68,7 +68,7 @@ const createUser = async (req, res) => {
     const result = await newUser.save();
     res.status(201).render("Registration has been successful. " + result);
     if (result) {
-      sendVerifyMail(req.body.username, req.body.email, userData._id);
+      // sendVerifyMail(req.body.username, req.body.email, userData._id);
       res.render("page-register", {
         message:
           "Your registration has been successfuly,Plase cheak  your Email",
@@ -79,29 +79,46 @@ const createUser = async (req, res) => {
       });
     }
   } catch (error) {
-    // res.send(error.massage);
     res.status(500).send(error.message);
   }
 };
 
-const verifyMail = async (req, res) => {
-  try {
-    const updateInfo = await User.updateOne(
-      { _id: req.query.id },
-      { $set: { is_varified: 1 } }
-    );
+// const verifyMail = async (req, res) => {
+//   try {
+//     const updateInfo = await User.updateOne(
+//       { _id: req.query.id },
+//       { $set: { is_varified: 1 } }
+//     );
 
-    console.log(updateInfo);
-    res.send("Your email is verifeid");
+//     console.log(updateInfo);
+//     res.send("Your email is verifeid");
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+const login = async (req, res) => {
+  try {
+    res.render("page-login");
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
 
+const index = async (req,res) =>{
 
-module.exports ={
-  Register ,
-  createUser ,
-  verifyMail
+  try{
+
+    res.render("index")
+
+  }catch(error){
+    console.log(error.message);
+  }
 }
 
+module.exports = {
+  Register,
+  createUser,
+  login,
+  index
+};

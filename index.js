@@ -41,6 +41,12 @@ const createUser = require("./controller/userCtr");
 app.use('/',userRouter);
 
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Internal Server Error');
+});
+
+
 
 app.listen(8000, () => {
   console.log("done");
