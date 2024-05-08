@@ -105,20 +105,41 @@ const login = async (req, res) => {
   }
 };
 
-const index = async (req,res) =>{
-
-  try{
-
-    res.render("index")
-
-  }catch(error){
+const index = async (req, res) => {
+  try {
+    res.render("index");
+  } catch (error) {
     console.log(error.message);
   }
-}
+};
+
+const verifyLogin = async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  const userData = await User.findOne({ email: email });
+
+  try {
+    if (userData) {
+      const passwordMatch = await bcrypt.compare(password, userData.password);
+
+      if (passwordMatch) {
+        res.render("index");
+      } else {
+        console.log("not match of password");
+      }
+    } else {
+       console.log("not found");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
   Register,
   createUser,
   login,
-  index
+  index,
+  verifyLogin,
 };
