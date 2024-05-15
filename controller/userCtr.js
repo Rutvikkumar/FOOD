@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
+const Product = require("../models/productModel");
 
 //? for secure Password function
 const securePassword = async (password) => {
@@ -105,13 +106,41 @@ const login = async (req, res) => {
   }
 };
 
-const index = async (req, res) => {
+// const index = async (req, res) => {
+//   try {
+//     res.render("index");
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
+
+const getAllProducts = async (req, res) => {
   try {
-    res.render("index");
+      // Fetch all products from the database
+      const products = await Product.find();
+      
+
+      // If no products found, return 404 Not Found status
+      if (!products || products.length === 0) {
+          return res.status(404).json({ message: 'No products found' });
+      }
+
+      // If products found, return them as JSON response
+
+
+      
+      // Assuming you want to fetch the second product
+      res.render('index',{products});
+      console.log(products);
+
+     
   } catch (error) {
-    console.log(error.message);
+      console.error('Error fetching products:', error);
+      // If an error occurs, return 500 Internal Server Error status
+      res.status(500).json({ message: 'Internal Server Error' });
   }
 };
+
 
 const verifyLogin = async (req, res) => {
   const email = req.body.email;
@@ -140,6 +169,6 @@ module.exports = {
   Register,
   createUser,
   login,
-  index,
   verifyLogin,
+  getAllProducts
 };

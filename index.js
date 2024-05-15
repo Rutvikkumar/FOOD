@@ -8,6 +8,9 @@ const paath = path.join(__dirname, "public");
 const userRouter = require("./routes/userRoutes");
 const user = require("./config/dbConnect");
 const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
+dotenv.config();
+const PORT =process.env.PORT || 4000;
 
 const app = express();
 app.set("view engine", "hbs");
@@ -32,6 +35,6 @@ app.use((err, req, res, next) => {
 
 
 
-app.listen(8000, () => {
+app.listen(PORT, () => {
   console.log("done");
 });

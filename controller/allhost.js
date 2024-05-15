@@ -43,8 +43,21 @@ const cart = async (req,res) =>{
 }
 
 
+const shopproright = async(req,res) =>{
+
+    try{
+
+     res.render('shop-product-right')
+
+    }catch(error){
+        console.log(error);
+    }
+}
+
+
 module.exports = {
     compare,
     wish,
-    cart
+    cart,
+    shopproright
 }
